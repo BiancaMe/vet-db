@@ -17,10 +17,7 @@ SELECT * FROM animals WHERE name != 'Gabumon';
 
 SELECT * FROM animals  WHERE weight_kg >= 10.4 AND weight_kg <= 17.3 ;
 
-BEGIN;
-UPDATE animals SET species = 'unspecified';
-ROLLBACK;
-
+/* Transitions */
 BEGIN;
 UPDATE animals SET species = 'unspecified';
 SELECT * FROM animals;
@@ -49,5 +46,13 @@ ROLLBACK TO delete_after;
 UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg  < 0;
 COMMIT;
 SELECT * FROM animals;
+
+/* Answers */
+SELECT count(*) FROM animals;
+SELECT count(*) FROM animals WHERE escape_attempts = 0;
+SELECT SUM(weight_kg) /   count(*) FROM animals;
+SELECT CASE WHEN SUM(CASE WHEN neutered = TRUE THEN escape_attempts END ) > SUM(CASE WHEN neutered = FALSE THEN escape_attempts END )   THEN 'Neutered'  WHEN SUM(CASE WHEN neutered = TRUE THEN escape_attempts END ) = SUM(CASE WHEN neutered = FALSE THEN escape_attempts END )   THEN 'Neutered and Not Neutered'   ELSE 'Not Neutered' END FROM animals; 
+SELECT species, MAX(weight_kg) , MIN(weight_kg) FROM animals WHERE species = 'digimon'   GROUP BY species UNION SELECT species , MAX(weight_kg) , MIN(weight_kg) FROM animals WHERE species = 'pokemon' GROUP BY species;
+SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth >= '01/01/1990' AND  date_of_birth <= '01/01/2000'  GROUP BY species;
 
 
