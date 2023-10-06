@@ -55,4 +55,3 @@ SELECT CASE WHEN SUM(CASE WHEN neutered = TRUE THEN escape_attempts END ) > SUM(
 SELECT species, MAX(weight_kg) , MIN(weight_kg) FROM animals WHERE species = 'digimon'   GROUP BY species UNION SELECT species , MAX(weight_kg) , MIN(weight_kg) FROM animals WHERE species = 'pokemon' GROUP BY species;
 SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth >= '01/01/1990' AND  date_of_birth <= '01/01/2000'  GROUP BY species;
 
-
