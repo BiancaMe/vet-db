@@ -55,3 +55,15 @@ SELECT CASE WHEN SUM(CASE WHEN neutered = TRUE THEN escape_attempts END ) > SUM(
 SELECT species, MAX(weight_kg) , MIN(weight_kg) FROM animals WHERE species = 'digimon'   GROUP BY species UNION SELECT species , MAX(weight_kg) , MIN(weight_kg) FROM animals WHERE species = 'pokemon' GROUP BY species;
 SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth >= '01/01/1990' AND  date_of_birth <= '01/01/2000'  GROUP BY species;
 
+/* Quesries usign JOIN */
+SELECT name FROM animals A JOIN owners O ON A.owner_id = O.id WHERE O.full_name = 'Melody Pond';
+SELECT A.name FROM animals A JOIN species S ON A.species_id = S.id WHERE S.name = 'Pokemon';
+SELECT O.full_name, A.name FROM owners  O LEFT JOIN animals A ON A.owner_id = O.id;
+SELECT S.name, COUNT(*) FROM animals A  JOIN species S ON A.species_id = S.id GROUP BY S.name; 
+SELECT A.name FROM animals A JOIN owners O ON  A.owner_id = O.id JOIN species S ON A.species_id = S.id WHERE O.full_name = 'Jennifer Orwell' AND S.name= 'Digimon';
+SELECT A.name FROM animals A JOIN owners O ON  A.owner_id = O.id WHERE O.full_name = 'Dean Winchester' AND A.escape_attempts = 0;
+SELECT O.full_name, COUNT(*) FROM owners O JOIN animals A ON A.owner_id = O.id GROUP BY O.full_name ORDER BY COUNT(*) DESC LIMIT 1;
+
+
+
+
