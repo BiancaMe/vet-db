@@ -64,6 +64,17 @@ SELECT A.name FROM animals A JOIN owners O ON  A.owner_id = O.id JOIN species S 
 SELECT A.name FROM animals A JOIN owners O ON  A.owner_id = O.id WHERE O.full_name = 'Dean Winchester' AND A.escape_attempts = 0;
 SELECT O.full_name, COUNT(*) FROM owners O JOIN animals A ON A.owner_id = O.id GROUP BY O.full_name ORDER BY COUNT(*) DESC LIMIT 1;
 
+/* Visits */
+SELECT A.name FROM animals A JOIN visits V ON A.id = V.animals_id JOIN vets VI ON V.vet_id = VI.id WHERE VI.name = 'Vet William Tatcher' ORDER BY V.visit DESC LIMIT 1;
+SELECT COUNT(DISTINCT V.animals_id) FROM visits V JOIN vets VETS ON V.vet_id = VETS.id WHERE VETS.name = 'Vet Stephanie Mendez';
+SELECT VETS.name, CASE WHEN S.species_id = 1 THEN 'Pokemon' WHEN  S.species_id = 2 THEN 'Digimon' ELSE 'N/A' END FROM vets VETS LEFT JOIN specializations S ON VETS.id = S.vet_id ORDER BY VETS.name;
+SELECT A.name FROM animals A JOIN visits V ON A.id = V.animals_id JOIN vets VETS ON V.vet_id = VETS.id WHERE VETS.name = 'Vet Stephanie Mendez' AND V.visit BETWEEN '01-04-2020' AND '30-08-2020';
+SELECT A.name, COUNT(*) AS counter FROM animals A JOIN visits V ON A.id = V.animals_id GROUP BY A.name ORDER BY counter DESC LIMIT 1;
+SELECT A.name, V.vet_id, V.visit, VET.name FROM visits V JOIN animals A ON A.id = V.animals_id JOIN vets VET ON V.vet_id = VET.id WHERE vet_id = '2' ORDER BY V.visit LIMIT 1;
+SELECT A.name AS animal, A.date_of_birth, A.escape_attempts, A.neutered,  A.weight_kg, V.vet_id, V.visit, VET.name, VET.age, VET.date_of_graduation FROM visits V JOIN animals A ON A.id = V.animals_id JOIN vets VET ON V.vet_id = VET.id ORDER BY V.visit LIMIT 1;
+SELECT  COUNT(*) FROM visits V JOIN animals a ON V.animals_id = A.id JOIN species S ON A.species_id = S.id JOIN vets VET ON V.vet_id = VET.id LEFT JOIN specializations SPE ON V.vet_id = SPE.vet_id AND S.id = SPE.species_id WHERE SPE.vet_id IS NULL ;
+SELECT COUNT(*) as counter, S.name AS specialty_name   FROM visits V JOIN animals A ON A.id = V.animals_id JOIN species S ON S.id = A.species_id WHERE vet_id = '2' GROUP BY species_id, S.name ORDER BY counter DESC LIMIT 1 ;
+
 
 
 
