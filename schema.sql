@@ -27,3 +27,21 @@ ALTER TABLE animals ADD PRIMARY KEY(id);
 ALTER TABLE animals ADD COLUMN species_id INT REFERENCES species(id);
 ALTER TABLE animals ADD COLUMN owner_id INT REFERENCES owners(id);
 
+CREATE TABLE vets(
+ id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+name VARCHAR NOT NULL, 
+age INT, 
+date_of_graduation DATE);
+
+CREATE TABLE specializations(
+species_id INT REFERENCES species(id),
+vet_id INT REFERENCES vets(id));
+
+CREATE TABLE visits(
+animals_id INT REFERENCES animals(id),
+vet_id INT REFERENCES vets(id), 
+visit DATE);
+
+
+
+
